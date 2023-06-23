@@ -1,4 +1,11 @@
 @echo off
+if not "%minimized%"=="" goto :minimized
+set minimized=true
+start /min cmd /C "%~dpnx0"
+goto :EOF
+:minimized
+
+@echo off
 setlocal enabledelayedexpansion
 
 :: Inicializa el contador
@@ -33,8 +40,9 @@ if errorlevel 1 (
 )
 
 :: Comprueba si el contador ha alcanzado 3
-if !contador! equ 4 (
+if !contador! equ 3 (
     echo "Intentos de inicio del juego, agotados: reiniciando el PC en 5 segundos..."
+    timeout /t 5 /nobreak > nul
     shutdown /r /t 0
 )
 
