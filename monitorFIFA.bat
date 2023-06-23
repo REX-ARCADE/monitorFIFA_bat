@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: Inicializa el contador
-set contador=1
+set contador=0
 
 :: Inicializa la variable primeraVez a verdadero (1)
 set primeraVez=1
@@ -23,10 +23,10 @@ if errorlevel 1 (
 
     echo "Ejecutando FIFA 23 por !contador!^a vez..."
     start "" "C:\Program Files\EA Games\FIFA 23\FIFA23.exe"    
-    timeout /t 30 /nobreak > nul
+    timeout /t 40 /nobreak > nul
 ) else (
     :: Restablece el contador si FIFA23.exe se está ejecutando
-    set contador=1
+    set contador=0
 
     REM echo "El programa esta en ejecucion."
     timeout /t 20 /nobreak > nul	
