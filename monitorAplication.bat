@@ -2,9 +2,9 @@
 setlocal enabledelayedexpansion
 
 :: Configuración de la aplicación a monitorear
-set APP_NAME="FC25.exe"
-set APP_PATH="C:\Program Files\EA Games\EA SPORTS FC 25\FC25.exe"
-set WINDOW_TITLE="EA SPORTS FC 25"
+set APP_NAME="NombreDelProceso.exe" :: ex) FC25.exe
+set APP_PATH="C:\Ruta\Completa\hacia\la\aplicacion.exe"  :: ex) C:\Program Files\EA Games\EA SPORTS FC 25\FC25.exe
+set WINDOW_TITLE="Título de la Ventana"  :: ex) EA SPORTS FC 25
 
 :: Inicializa el contador de intentos
 set contador=0
