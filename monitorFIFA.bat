@@ -15,27 +15,28 @@ set contador=0
 set primeraVez=1
 
 :loop
-tasklist | find /i "FIFA23.exe" > nul 2>&1
+tasklist | find /i "FC25.exe" > nul 2>&1
 if errorlevel 1 (
     :: Si es la primera vez que se ejecuta el código, espera 30 segundos
     if !primeraVez! equ 1 (
-        echo "Iniciando programa de arranque de FIFA 23 por primera vez"
+        echo "Iniciando programa de arranque de FIFA 25 por primera vez"
         timeout /t 30 /nobreak > nul
         :: Establece primeraVez a falso (0) después de la primera ejecución
         set primeraVez=0
     )
     
-    :: Incrementa el contador si FIFA23.exe no se está ejecutando
+    :: Incrementa el contador si FC25.exe no se está ejecutando
     set /a contador=!contador!+1
 
-    echo "Ejecutando FIFA 23 por !contador!^a vez..."
-    start "" "C:\Program Files\EA Games\FIFA 23\FIFA23.exe"    
+    echo "Ejecutando FIFA 25 por !contador!^a vez..."
+    start "" "C:\Program Files\EA Games\EA SPORTS FC 24\FC25.exe"    
     timeout /t 40 /nobreak > nul
 ) else (
-    :: Restablece el contador si FIFA23.exe se está ejecutando
+    :: Restablece el contador si FC25.exe se está ejecutando
     set contador=0
 
-    REM echo "El programa esta en ejecucion."
+    :: Verifica si el juego está en primer plano y lo pone en primer plano si no lo está
+    nircmd win activate ititle "EA SPORTS FC 25"
     timeout /t 20 /nobreak > nul	
 )
 
