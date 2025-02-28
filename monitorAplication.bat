@@ -1,34 +1,32 @@
 @echo off
+chcp 65001 > nul
 setlocal enabledelayedexpansion
 
-:: Configuración de la aplicación a monitorear
-set APP_NAME="NombreDelProceso.exe" :: ex) FC25.exe
-set APP_PATH="C:\Ruta\Completa\hacia\la\aplicacion.exe"  :: ex) C:\Program Files\EA Games\EA SPORTS FC 25\FC25.exe
-set WINDOW_TITLE="Título de la Ventana"  :: ex) EA SPORTS FC 25
+echo Configuracion de la aplicacion a monitorear
 
-:: Inicializa el contador de intentos
+echo Inicializa el contador de intentos
 set contador=0
 set primeraVez=1
 
 :loop
-tasklist | find /i %APP_NAME% > nul 2>&1
+tasklist | find /i "FC25.exe" > nul 2>&1
 if errorlevel 1 (
     if !primeraVez! equ 1 (
-        echo "Iniciando la aplicación por primera vez..."
+        echo "Iniciando la aplicacion por primera vez..."
         timeout /t 30 /nobreak > nul
         set primeraVez=0
     )
     
     set /a contador=!contador!+1
-    echo "Ejecutando la aplicación por !contador!^a vez..."
-    start "" %APP_PATH%
+    echo "Ejecutando la aplicacion por !contador!a vez..."
+    start "" "C:\Program Files\EA Games\EA SPORTS FC 25\FC25.exe"
     timeout /t 40 /nobreak > nul
 ) else (
     set contador=0
-    echo "La aplicación está en ejecución."
+    echo "La aplicacion esta en ejecucion."
     
-    :: Verificar si la ventana está en primer plano
-    nircmd win activate ititle %WINDOW_TITLE%
+    echo Verificar si la ventana esta en primer plano
+    nircmd win activate ititle "EA SPORTS FC 25"
     timeout /t 20 /nobreak > nul
 )
 
