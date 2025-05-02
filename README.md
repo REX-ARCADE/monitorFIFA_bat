@@ -1,45 +1,64 @@
-# Monitor de Aplicaciones de Windows
+# Monitor de Ejecución para Aplicaciones en Máquinas Windows
 
-Este script (monitorAplicacion.bat) asegura que una aplicación o juego específico esté en ejecución y, si no lo está, lo inicia automáticamente. Además, mantiene la ventana en primer plano para evitar interrupciones.
+Este paquete está diseñado para garantizar que una **aplicación o juego se mantenga siempre en ejecución** y que su ventana esté activa y visible, especialmente en entornos sin teclado ni ratón como máquinas arcade, kioscos o equipos públicos.
 
-## Requisitos Previos
+## Contenido del paquete
 
-Antes de usar este script, asegúrate de cumplir con los siguientes requisitos:
+- `monitorFIFA_utf8.bat` → Script principal que comprueba constantemente si la aplicación está ejecutándose.
+- `verifica_ventana.ps1` → Script auxiliar que detecta si la aplicación está en primer plano y, si no lo está, la activa.
+- *(opcional)* `nircmd.exe` → Herramienta de NirSoft que permite forzar la activación de la ventana de la aplicación.
 
-1. **Aplicación o juego instalado**
-   - El juego debe estar correctamente instalado en tu equipo.
-   
-2. **Sesión iniciada si es necesario en EA App/Steam**
-   - Si la aplicación requiere autenticación (como en plataformas de juegos), debes haber iniciado sesión previamente para evitar errores en la ejecución.
+> 📝 **Nota**: Aunque los nombres de archivo hacen referencia a "FIFA", este sistema funciona con cualquier aplicación si se adapta el nombre del ejecutable y el título de la ventana.
 
-3. **NirCmd instalado**
-   - Este script utiliza NirCmd para gestionar la ventana del juego. Descárgalo desde [NirSoft](https://www.nirsoft.net/utils/nircmd.html) y colócalo en una ubicación accesible.
+## Requisitos
 
-## Instalación y Uso
+Antes de utilizar el sistema, asegúrate de cumplir con los siguientes puntos:
 
-1. **Descargar el archivo `monitorAplication.bat`** y colócalo en una carpeta segura.
-2. **Configurar el script**
-   - Abre el archivo .bat con un editor de texto y modifica las siguientes variables para adaptarlo a tu aplicación:
-   ```set APP_NAME="NombreDelProceso.exe"```\
-   ```set APP_PATH="C:\Ruta\Completa\hacia\la\aplicacion.exe"```\
-   ```set WINDOW_TITLE="Título de la Ventana"```
-      - **APP_NAME**: Nombre del proceso de la aplicación (puedes verificarlo con el Administrador de Tareas).
-      - **APP_PATH**: Ruta completa donde está instalada la aplicación.
-      - **WINDOW_TITLE**: Título exacto de la ventana de la aplicación (útil para mantenerla en primer plano).
-        
-3. **3.Asegurar que el script se ejecute al inicio de Windows**
-   - Puedes agregar un acceso directo al archivo en la carpeta shell:startup para que se inicie automáticamente.
+1. **La aplicación debe estar instalada correctamente**
+   - Por ejemplo:  
+     `C:\Program Files\NombreDeLaApp\NombreApp.exe`
 
-## Cómo funciona
-- El script verifica constantemente si APP_NAME está en ejecución.
-- Si la aplicación no está ejecutándose, la inicia automáticamente.
-- Si la aplicación está en ejecución pero en segundo plano, la trae al frente.
-- Si la aplicación no puede iniciarse después de 3 intentos, el sistema se reiniciará para intentar corregir el problema.
+2. **Debe haber una sesión iniciada si la app lo requiere**
+   - En el caso de juegos, como FIFA, es necesario iniciar sesión previamente en EA App, Steam u otra plataforma.
 
-## Notas Adicionales
-- Este script está diseñado para ejecutarse en Windows.
-- Si experimentas problemas, revisa los permisos de ejecución y asegúrate de que APP_PATH es correcto.
+3. **NirCmd disponible**
+   - Si no está ya en el sistema, puedes descargar `nircmd.exe` desde [NirSoft](https://www.nirsoft.net/utils/nircmd.html) y colocar el archivo en:
+     - La misma carpeta que los scripts, o
+     - `C:\Windows\System32\` (para acceso global)
+
+## Instalación y uso
+
+1. **Descomprime los archivos** en una carpeta fija, por ejemplo:  
+   `C:\Utilidades\monitor`
+
+2. **Edita el script `.bat` si es necesario**
+   - Abre `monitorFIFA_utf8.bat` con un editor de texto y cambia el nombre del ejecutable (`FC25.exe`) por el nombre de tu aplicación.
+
+3. **Ejecuta el script** haciendo doble clic sobre `monitorFIFA_utf8.bat`.
+
+4. *(Opcional pero recomendado)*: Añade el script al inicio automático de Windows:
+   - Pulsa `Win + R` y escribe: `shell:startup`
+   - Crea un acceso directo al archivo `.bat` dentro de esa carpeta
+
+## Qué hace el sistema
+
+- Comprueba si un proceso específico está activo.
+- Si no lo está, lo lanza automáticamente desde su ruta conocida.
+- Si está activo pero no es la ventana principal, la trae al frente mediante `nircmd`.
+- El sistema monitoriza continuamente el estado de ejecución, sin intervención del usuario.
+
+## Compatibilidad
+
+✔ Windows 10 / 11  
+✔ Ideal para entornos arcade, kioscos o máquinas dedicadas  
+✔ Requiere que la pantalla no se apague ni entre en suspensión
+
+## Consejos adicionales
+
+- Se recomienda configurar la aplicación en **modo ventana sin bordes** si es posible.
+- Asegúrate de que Windows **no apague la pantalla ni entre en suspensión** automáticamente.
+- Si la aplicación no responde bien al cambio de foco, puedes ajustar la frecuencia de comprobación modificando los valores de `timeout` en el `.bat`.
 
 ---
 
-*Desarrollado para asegurar que cualquier aplicación o juego esté siempre en ejecución sin interrupciones.*
+*Sistema desarrollado para asegurar la ejecución continua de cualquier aplicación en contextos sin supervisión o interacción directa con el sistema operativo.*
